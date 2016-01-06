@@ -1,4 +1,5 @@
 <?php 
+
 	// konfigurimi
     require("/../site_folders/includes/config.php"); 
 
@@ -15,4 +16,5 @@
     }
 
     render("profile_" . $_SESSION["type"] . ".php", ["title" => "Profili im", "fields" => $rows[0]]);
+    
 ?>
