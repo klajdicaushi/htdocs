@@ -13,8 +13,15 @@
     		render("addgrades_choose.php", ["title" => "Shto nota"]);
 
     	// shfaq formular per notat
-    	elseif($_POST["option"] == "add")
-    		render("addgrades_add.php", ["title" => "Shto nota"]);
+    	elseif($_POST["option"] == "add") {
+    		// kontrollo nese numri i lendeve eshte i vlefshem
+    		if (!preg_match("/^[1-9][0-9]*$/", $_POST["nrLende"])) {
+    			showAlert("Numri i lëndëve është i pavlefshëm.");
+    			render("addgrades_choose.php", ["title" => "Shto nota"]);
+    			return;
+    		}
+    		render("addgrades_add.php", ["title" => "Shto nota", "nrLende" => $_POST["nrLende"]]);
+    	}
 
     	// hidh notat ne sistem
     	elseif($_POST["option"] == "publish")
@@ -44,7 +51,7 @@
     			apologize("Nuk mund të llogaritet nota mesatare. Provoni sërish më vonë.");
 
     		// nese gjithcka shkon mire, shko tek profili
-    		redirect("/profile.php");
+    		redirect("/grades.php");
     	}
     }
 
