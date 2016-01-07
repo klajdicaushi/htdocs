@@ -66,6 +66,17 @@
 
     // nese perdoruesi eshte student
     if ($_POST["type"] == "student") {
+        // kontrollo moshen
+        if (!preg_match("/^[1-9][0-9]$/", $_POST["mosha"])) {
+            showAlert("Moshë e pavlefshme.");
+            renderNoMenu("register_" . $_POST["type"] . ".php", ["title" => "Regjistrohu", "fields" => $_POST]);
+            // shko tek fusha e moshes
+            echo "<script>";
+            echo "document.getElementById('myForm').mosha.focus()";
+            echo "</script>";
+            return;
+        }
+
         // shto perdoruesin e ri ne tabelen student
         if ( query("INSERT INTO student (id, emri, mosha, email, cel) VALUES (?, ?, ?, ?, ?)", 
             $rows[0]["id"], $_POST["emri"], intval($_POST["mosha"]), $_POST["email"], $_POST["cel"]) === false)
