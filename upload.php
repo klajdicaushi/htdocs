@@ -3,6 +3,10 @@
 	// konfigurimi
 	require("/../site_folders/includes/config.php"); 
 	
+	// nese faqja eshte arritur jo nepermjet nje forme, shko tek faqja kryesore
+	if ($_SERVER["REQUEST_METHOD"] == "GET")
+		redirect("/");
+
 	// kontrollo nese file eshte ngarkuar me sukses
 	if(isset($_POST['upload']) && $_FILES['userfile']['size'] > 0)
 	{
