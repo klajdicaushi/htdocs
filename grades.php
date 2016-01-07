@@ -3,17 +3,24 @@
 	// konfigurimi
     require("/../site_folders/includes/config.php"); 
 
-    // kontrollo nese perdoruesi eshte student
-    if ( ($rows = query("SELECT type FROM users WHERE id = ?", $_SESSION["id"])) === false)
-    	apologize("Nuk mund të verifikohet identiteti. Provoni sërish më vonë.");
+    // nese perdoruesi eshte student
+    if ($_SESSION["type"] == "student") {
+        // nese studenti do te shohe notat e dikujt tjeter
+        if (isset($_GET["id_student"]))
+            // riktheje tek notat e vet
+            redirect("/grades.php");
 
-    // nese nuk eshte student, shko tek faqja kryesore
-    if ($rows[0]["type"] != "student")
-    	redirect("/");
+        // merr notat nga sistemi duke perdorur $_SESSION["id"]
+        if ( ($rows = query("SELECT lenda, nota FROM nota WHERE id_student = ?", $_SESSION["id"])) === false)
+            apologize("Nuk mund të shfaqen notat për momentin. Provoni sërish më vonë.");
+    }
 
-    // merr notat nga sistemi
-    if ( ($rows = query("SELECT lenda, nota FROM nota WHERE id_student = ?", $_SESSION["id"])) === false)
-    	apologize("Nuk mund të merren notat për momentin. Provoni sërish më vonë.");
+    // nese perdoruesi eshte kompani
+    elseif($_SESSION["type"] == "kompani") {
+        // merr notat nga sistemi duke perdorur $_GET["id"]
+        if ( ($rows = query("SELECT lenda, nota FROM nota WHERE id_student = ?", $_GET["id_student"])) === false)
+            apologize("Nuk mund të shfaqen notat për momentin. Provoni sërish më vonë.");
+    }
 
     // shfaq notat
     render("grades_show.php", ["title" => "Lista e notave", "fields" => $rows]);
