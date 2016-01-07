@@ -14,8 +14,15 @@
     // shfaq te gjithe studentet
     if ($_GET["show"] == "all") 
     {
-	    // merr te dhenat nga sistemi
-	    if (($rows = query("SELECT * FROM student")) === false)
+    	// nese nuk eshte zgjedhur nje opsion per renditjen, rendit sipas emrit
+    	if (!isset($_GET["sort"]))
+    		$_GET["sort"] = "emri";
+
+    	if (!isset($_GET["order"]))
+    		$_GET["order"] = "ASC";
+
+	    // merr te dhenat e renditura nga sistemi
+	    if (($rows = query("SELECT * FROM student ORDER BY " . $_GET["sort"] . " " . $_GET["order"])) === false)
 	    	apologize("Nuk mund të merren të dhënat nga sistemi. Provoni sërish më vonë.");
 
 	    // shfaq studentet

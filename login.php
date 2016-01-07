@@ -1,6 +1,6 @@
 <?php
 
-    // configuration
+    // konfigurimi
     require("/../site_folders/includes/config.php"); 
 
     // nese faqja eshte arritur nepermjet GET (link ose redirect)

@@ -14,7 +14,6 @@
     	if (($rows = query("SELECT * FROM kompani")) === false)
     		apologize("Nuk mund të merren të dhënat nga sistemi. Provoni sërish më vonë.");
 
-    	render()
     }
 
 
