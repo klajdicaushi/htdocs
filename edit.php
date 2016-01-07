@@ -35,6 +35,18 @@
 	            }
     	}
 
+    	// kontrollo numrin e celularit
+    	if ($_POST["cel"] != "" && !preg_match("/^(\+)?[0-9]+$/", $_POST["cel"]))
+    	{
+	        showAlert("Numër celulari i pavlefshëm.");
+	        render("edit_" . $_SESSION["type"] . ".php", ["title" => "Modifiko", "fields" => $_POST]);
+	        // shko tek fusha e numrit
+	        echo "<script>";
+	        echo "document.getElementById('myForm').cel.focus()";
+	        echo "</script>";
+	        return;
+	    }
+
     	// kontrollo formatin e e-mailit
 	    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) 
 	    {
@@ -48,7 +60,8 @@
 	    }
 
 	    // nese perdoruesi eshte student
-	    if ($_SESSION["type"] == "student") {
+	    if ($_SESSION["type"] == "student") 
+	    {
 	        // kontrollo moshen
 	        if (!preg_match("/^[1-9][0-9]$/", $_POST["mosha"])) {
 	            showAlert("Moshë e pavlefshme.");
@@ -66,6 +79,16 @@
 	                apologize("Nuk mund të modifikohen të dhënat për momentin. Provoni sërish më vonë.");	
     	}
 
+    	// nese perdoruesi eshte kompani
+    	if ($_SESSION["type"] == "kompani")
+    	{
+    		if ( query("UPDATE kompani SET emri_kompani = ?, qyteti = ?, adresa = ?, email = ?, cel = ?, pershkrimi = ? WHERE id = ?", 
+            	$_POST["emri_kompani"], $_POST["qyteti"], $_POST["adresa"], 
+                	$_POST["email"], $_POST["cel"], $_POST["pershkrimi"], $_SESSION["id"]) === false)
+                		apologize("Nuk mund të modifikohen të dhënat për momentin. Provoni sërish më vonë.");
+    	}
+
+    	// nese cdo gje shkon mire, shko tek profili
     	redirect("/profile.php");
     }
 

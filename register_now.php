@@ -30,6 +30,18 @@
         return;
     }
 
+    // kontrollo numrin e celularit
+    if ($_POST["cel"] != "" && !preg_match("/^(\+)?[0-9]+$/", $_POST["cel"]))
+    {
+        showAlert("Numër celulari i pavlefshëm.");
+        renderNoMenu("register_" . $_POST["type"] . ".php", ["title" => "Regjistrohu", "fields" => $_POST]);
+        // shko tek fusha e numrit
+        echo "<script>";
+        echo "document.getElementById('myForm').cel.focus()";
+        echo "</script>";
+        return;
+    }
+
     // kontrollo formatin e e-mailit
     if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) 
     {
