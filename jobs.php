@@ -3,6 +3,10 @@
     // konfigurimi
     require("/../site_folders/includes/config.php"); 
 
+    // nese nuk eshte zgjedhur nje opsion per show
+    if (!isset($_GET["show"]))
+    	$_GET["show"] = "all";
+
     if ($_SESSION["type"] == "student") 
     {
 
@@ -15,12 +19,35 @@
             // riktheje tek njoftimet e veta
             redirect("/jobs.php");
 
-        // merr njoftimet nga databaza
-    	if (($rows = query("SELECT * FROM njoftime WHERE id_kompani = ?", $_SESSION["id"])) === false)
-    		apologize("Nuk mund të shfaqen njoftimet për momentin. Provoni sërish më vonë.");
+        // nese kompania do te shohe te gjitha njoftimet e veta
+        if ($_GET["show"] == "all") 
+        {
+        	// merr njoftimet nga databaza
+    		if (($rows = query("SELECT * FROM njoftime WHERE id_kompani = ?", $_SESSION["id"])) === false)
+    			apologize("Nuk mund të shfaqen njoftimet për momentin. Provoni sërish më vonë.");
+	
+    		// shfaq njoftimet
+    		render("jobs_show.php", ["title" => "Njoftimet e mia", "njoftime" => $rows]);
+    	}
 
-    	// shfaq njoftimet
-    	render("jobs_show.php", ["title" => "Njoftimet e mia", "njoftime" => $rows]);
+    	// nese eshte perzgjedhur nje njoftim
+    	if ($_GET["show"] == "selected")
+    	{
+    		// nese nuk eshte vendosur 'id_njoftim' ne URL
+    		if (!isset($_GET["id_njoftim"]))
+    			redirect("/jobs.php");
+
+    		// merr te dhenat e njoftimit
+    		if (($njoftim = query("SELECT * FROM njoftime WHERE id_njoftim = ?", $_GET["id_njoftim"])) === false)
+    			apologize("Nuk mund të shfaqet njoftimi për momentin. Provoni sërish më vonë.");
+
+    		// merr emrin e kompanise
+    		if (($kompani = query("SELECT * FROM kompani WHERE id = ?", $njoftim[0]["id_kompani"])) === false)
+    			apologize("Nuk mund të shfaqet njoftimi për momentin. Provoni sërish më vonë.");
+
+    		// shfaq njoftimin
+    		render("jobs_select.php", ["title" => $njoftim[0]["pozicioni"], "njoftim" => $njoftim[0], "kompani" => $kompani[0]]);
+    	}
     }
 
 ?>

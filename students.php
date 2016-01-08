@@ -32,9 +32,9 @@
 	// shfaq nje student te perzgjedhur
 	if ($_GET["show"] == "selected")
 	{
-		
+		// nese nuk eshte perzgjedhur nje id
 		if (!isset($_GET["id"]))
-			redirect("/students.php?show=all");
+			redirect("/students.php");
 
 		// merr te dhenat e studentit nga databaza
 		if (($result = query("SELECT * FROM student WHERE id = ?", $_GET["id"])) === false)
