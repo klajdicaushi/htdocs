@@ -17,7 +17,21 @@
     		// merr te dhenat e njoftimit
     		if (($result = query("SELECT * FROM njoftime WHERE id_njoftim = ?", $_POST["id_njoftim"])) === false)
     			apologize("Nuk mund të merren të dhënat për momentin. Provoni sërish më vonë.");
-    		render("edit_njoftim.php", ["title" => "Modifiko njoftimin", "fields" => $result[0]]);
+
+    		// nese kerkohet te ndryshohen te dhenat e njoftimit
+    		if ($_POST["submit"] == "edit")
+    			render("edit_njoftim.php", ["title" => "Modifiko njoftimin", "fields" => $result[0]]);
+
+    		// nese kerkohet te fshihet njoftimi
+    		elseif ($_POST["submit"] == "delete") 
+    		{
+    			// fshi njoftimin nga databaza
+    			if (query("DELETE FROM njoftime WHERE id_njoftim = ?", $_POST["id_njoftim"]) === false)
+    				apologize("Nuk mund të fshihet njoftimi për momentin. Provoni sërish më vonë.");
+
+    			// kthehu tek faqja e njoftimeve
+    			redirect("/jobs.php");
+    		}
     	}
 
     	// nese kerkohet te hidhen te dhenat ne sistem
@@ -39,8 +53,19 @@
 	       		    }
     		}
 
+    		// kontrollo nese data eshte ne format te rregullt
+    		if (!preg_match("/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/", $_POST["afati"])) 
+    		{
+    			showAlert("Datë e pavlefshme!");
+	       		        render("edit_njoftim.php", ["title" => "Modifiko njoftimin", "fields" => $_POST]);
+	       		        // shko tek fusha e dates
+	       		        echo "<script>";
+	       		        echo "document.getElementById('myForm').afati.focus()";
+	       		        echo "</script>";
+	       		        return;
+    		}
+
 	    	// modifiko te dhenat ne tabelen njoftime
-	    	$date = date_create($_POST["afati"]);
 	    	if (query("UPDATE njoftime SET pozicioni = ?, qyteti = ?, adresa = ?, pershkrimi = ?, kualifikimet = ?, afati = ? WHERE id_njoftim = ?",
 	    			$_POST["pozicioni"], $_POST["qyteti"], $_POST["adresa"], $_POST["pershkrimi"], 
 	    				$_POST["kualifikimet"], $_POST["afati"], $_POST["id_njoftim"]) === false)
@@ -49,6 +74,5 @@
 	    	// nese cdo gje shkon mire, shko tek njoftimi
 	    	redirect("/jobs.php?show=selected&id_njoftim=" . $_POST["id_njoftim"]);
     	}
- 
     }
 ?>

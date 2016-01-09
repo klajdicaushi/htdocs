@@ -18,6 +18,7 @@
     	if (!isset($_GET["sort"]))
     		$_GET["sort"] = "emri";
 
+    	// nese nuk eshte zgjedhur nje opsion per rendin, rendit ne rend rrites
     	if (!isset($_GET["order"]))
     		$_GET["order"] = "ASC";
 
