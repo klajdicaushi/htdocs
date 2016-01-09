@@ -6,10 +6,11 @@
     // nese nuk eshte zgjedhur nje opsion per show
     if (!isset($_GET["show"]))
     	$_GET["show"] = "all";
- 
+
     // nese faqja vizitohet nga nje student
     if ($_SESSION["type"] == "student") 
     {
+    	// nese studenti do te shohe te gjitha njoftimet
         if ($_GET["show"] == "all") 
         {
         	// nese nuk eshte perzgjedhur nje kompani
@@ -37,6 +38,25 @@
 	    		// shfaq njoftimet
     			render("jobs_show.php", ["title" => $kompani[0]["emri_kompani"], "njoftime" => $rows]);
 	    	}
+    	}
+
+    	// nese studenti ka shtypur nje nga butonat e interesimit
+    	if ($_SERVER["REQUEST_METHOD"] == "POST")
+    	{
+    		// nese studenti do te interesohet
+    		if ($_POST["action"] == "subscribe") {
+    			if (query("INSERT INTO kandidate (id_njoftim, id_student) VALUES (?, ?)", $_POST["id_njoftim"], $_SESSION["id"]) === false)
+    				apologize("Nuk mund të kryhet veprimi për momentin. Provoni sërish më vonë.");
+    		}
+
+			// nese studenti do te heqe interesimin
+    		elseif($_POST["action"] == "unsubscribe") {
+    			if (query("DELETE FROM kandidate WHERE id_njoftim = ? AND id_student = ?", $_POST["id_njoftim"], $_SESSION["id"]) === false)
+    				apologize("Nuk mund të kryhet veprimi për momentin. Provoni sërish më vonë.");
+    		}
+
+    		// nese gjithcka shkon mire, rikthehu tek faqja e njoftimit
+    		redirect("/jobs.php?show=selected&id_njoftim=" . $_POST["id_njoftim"]);
     	}
     }
 
@@ -73,4 +93,6 @@
     	// shfaq njoftimin
     	render("jobs_select.php", ["title" => $njoftim[0]["pozicioni"], "njoftim" => $njoftim[0], "kompani" => $kompani[0]]);
     }
+
+
 ?>
