@@ -54,6 +54,18 @@
 		return;
 	}
 
+	/* // kontrollo fortesine e passwordit
+	if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,30}$/', $_POST["password"])) 
+	{
+    	showAlert("Fjalëkalimi nuk plotëson kushtet.");
+		renderNoMenu("register_" . $_POST["type"] . ".php", ["title" => "Regjistrohu", "fields" => $_POST]);
+		// shko tek fusha e emailit
+		echo "<script>";
+		echo "document.getElementById('myForm').password.focus()";
+		echo "</script>";
+		return;
+	} */
+
 	// nese te gjitha fushat jane plotesuar
 
 	// kontrollo nese ekziston nje perdorues me ate username

@@ -9,14 +9,14 @@
 
 	elseif ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
-		if (($result = query("DELETE FROM users WHERE id = ?", $_POST["id"])) === false)
+		if (($result = query("DELETE FROM cv WHERE id_student = ?", ($_SESSION["type"] == "admin") ? $_POST["id"] : $_SESSION["id"])) === false)
 			apologize("Nuk mund të plotësohet kërkesa për momentin. Provoni sërish më vonë.");
 
-		// rikthehu tek faqja ku ishe
-		if ($_POST["type"] == "student")
-			redirect("students.php");
-		else if ($_POST["type"] == "kompani")
-			redirect("kompani.php");
+		// nese gjithcka shkon mire
+		if ($_SESSION["type"] == "admin")
+			redirect("students.php?show=selected&id=" . $_POST["id"]);
+		else
+			redirect("/profile.php");
 	}
 
 ?>

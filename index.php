@@ -27,4 +27,14 @@
         render("home_kompani.php", ["title" => "Kreu", "kompani" => $kompani[0]]);
     }
 
+    // nese faqja po aksesohet nga admini
+    elseif($_SESSION["type"] == "admin")
+    {
+        // merr username-in e adminit nga databaza
+        if (($admin = query("SELECT username FROM users WHERE id = ?", $_SESSION["id"])) === false)
+            apologize("Nuk mund të shfaqet faqja kryesore për momentin. Provoni sërish më vonë.");
+
+        render("home_admin.php", ["title" => "Kreu", "admin" => $admin[0]]);
+    }
+
 ?>

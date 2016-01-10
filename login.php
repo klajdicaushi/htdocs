@@ -58,7 +58,7 @@
                     // shko tek faqja kryesore
                     redirect("/");
                 }
-            }   
+            }
     
             // nese te dhenat nuk jane te sakta, shfaq nje alert dhe rishfaq formularin
             showAlert("Përdorues ose fjalëkalim i gabuar.");

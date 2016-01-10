@@ -22,11 +22,14 @@
 		$fileName = addslashes($fileName);
 
 		if (($result = query("INSERT INTO cv (id_student, name, size, type, content) VALUES (?, ?, ?, ?, ?)", 
-			$_SESSION["id"], $fileName, $fileSize, $fileType, $content)) === false)
+			($_SESSION["type"] == "admin") ? $_POST["id"] : $_SESSION["id"], $fileName, $fileSize, $fileType, $content)) === false)
 				apologize("Nuk mund të ngarkohet dokumenti në këtë moment. Provoni sërish më vonë.");
 		
-		// nese gjithcka shkon mire, shko tek profili
-		redirect("/profile.php");
+		// nese gjithcka shkon mire
+		if ($_SESSION["type"] == "admin")
+			redirect("students.php?show=selected&id=" . $_POST["id"]);
+		else
+			redirect("/profile.php");
 	} 
 
 ?>

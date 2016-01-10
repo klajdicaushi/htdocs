@@ -28,6 +28,14 @@
             return;
         }
 
+        /* // kontrollo fortesine e passwordit
+        if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,30}$/', $_POST["newPassword"])) 
+        {
+            showAlert("Fjalëkalimi nuk plotëson kushtet.");
+            render("change_password.php", ["title" => "Ndërro fjalëkalimin"]);
+            return;
+        } */
+
         // kontrollo nese passwordi i ri eshte i ndryshem nga i pari
         if ($_POST["newPassword"] == $_POST["currPassword"])
         { 
