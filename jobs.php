@@ -8,9 +8,9 @@
     	$_GET["show"] = "all";
 
     // nese faqja vizitohet nga nje student
-    if ($_SESSION["type"] == "student") 
+    if ($_SESSION["type"] == "student" || $_SESSION["type"] == "admin") 
     {
-    	// nese studenti do te shohe te gjitha njoftimet
+    	// nese duhet te shfaqet te gjitha njoftimet te gjitha njoftimet
         if ($_GET["show"] == "all") 
         {
         	// nese nuk eshte perzgjedhur nje kompani
@@ -31,7 +31,7 @@
 	    		if (($rows = query("SELECT * FROM njoftime WHERE id_kompani = ?", $_GET["id_kompani"])) === false)
 	    			apologize("Nuk mund të shfaqen njoftimet për momentin. Provoni sërish më vonë.");
 
-	    		// merr emrin e kompanise nga databaze per ta vendosur si titull te faqes
+	    		// merr emrin e kompanise nga databaza per ta vendosur si titull te faqes
 	    		if (($kompani = query("SELECT emri_kompani FROM kompani WHERE id = ?", $_GET["id_kompani"])) === false)
     				apologize("Nuk mund të shfaqen njoftimet për momentin. Provoni sërish më vonë.");
 
@@ -40,7 +40,7 @@
 	    	}
     	}
 
-    	// nese studenti ka shtypur nje nga butonat e interesimit
+    	// nese eshte shtypur nje nga butonat e interesimit
     	if ($_SERVER["REQUEST_METHOD"] == "POST")
     	{
     		// nese studenti do te interesohet
@@ -49,14 +49,16 @@
     				apologize("Nuk mund të kryhet veprimi për momentin. Provoni sërish më vonë.");
     		}
 
-			// nese studenti do te heqe interesimin
+			// nese studenti ose admini do te heqe interesimin
     		elseif($_POST["action"] == "unsubscribe") {
-    			if (query("DELETE FROM kandidate WHERE id_njoftim = ? AND id_student = ?", $_POST["id_njoftim"], $_SESSION["id"]) === false)
-    				apologize("Nuk mund të kryhet veprimi për momentin. Provoni sërish më vonë.");
+    			if (query("DELETE FROM kandidate WHERE id_njoftim = ? AND id_student = ?", $_POST["id_njoftim"], 
+                    ($_SESSION["type"] == "admin") ? $_POST["id_student"] : $_SESSION["id"]) === false)
+    				    apologize("Nuk mund të kryhet veprimi për momentin. Provoni sërish më vonë.");
     		}
 
     		// nese gjithcka shkon mire, rikthehu tek faqja e njoftimit
     		redirect("/jobs.php?show=selected&id_njoftim=" . $_POST["id_njoftim"]);
+
     	}
     }
 

@@ -108,8 +108,8 @@
 	                apologize("Nuk mund të modifikohen të dhënat për momentin. Provoni sërish më vonë.");	
     	}
 
-    	// nese perdoruesi eshte kompani
-    	if ($_SESSION["type"] == "kompani")
+    	// nese perdoruesi eshte kompani ose admin qe po modifikon nje kompani
+    	if (($_SESSION["type"] == "kompani") || ($_SESSION["type"] == "admin" && $_POST["type"] == "kompani"))
     	{
     		if ( query("UPDATE kompani SET emri_kompani = ?, qyteti = ?, adresa = ?, email = ?, cel = ?, pershkrimi = ? WHERE id = ?", 
             	$_POST["emri_kompani"], $_POST["qyteti"], $_POST["adresa"], 
@@ -118,8 +118,18 @@
     	}
 
     	// nese cdo gje shkon mire
-    	if ($_SESSION["type"] == "admin")
-    		redirect("students.php?show=selected&id=" . $_POST["id"]);
+
+    	// nese perdoruesi eshte admin
+    	if ($_SESSION["type"] == "admin") 
+    	{
+    		// nese po modifikonte nje student
+    		if ($_POST["type"] == "student")
+    			redirect("students.php?show=selected&id=" . $_POST["id"]);
+    		if ($_POST["type"] == "kompani")
+    			redirect("companies.php?show=selected&id_kompani=" . $_POST["id"]);
+    	}
+
+    	//nese perdoruesi eshte student ose kompani
     	else
     		redirect("/profile.php");
     }

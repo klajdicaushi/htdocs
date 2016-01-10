@@ -26,11 +26,11 @@
     if ($_GET["show"] == "selected")
     {   
         // nese nuk eshte perzgjedhur nje id
-        if (!isset($_GET["id"]))
+        if (!isset($_GET["id_kompani"]))
             redirect("/companies.php");
 
         // merr te dhenat e kompanise nga databaza
-        if (($result = query("SELECT * FROM kompani WHERE id = ?", $_GET["id"])) === false)
+        if (($result = query("SELECT * FROM kompani WHERE id = ?", $_GET["id_kompani"])) === false)
             apologize("Nuk mund të hapet profili për momentin. Provoni sërish më vonë.");
 
         $kompani = $result[0];

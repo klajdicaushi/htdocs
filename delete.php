@@ -16,7 +16,7 @@
 		if ($_POST["type"] == "student")
 			redirect("students.php");
 		else if ($_POST["type"] == "kompani")
-			redirect("kompani.php");
+			redirect("companies.php");
 	}
 
 ?>

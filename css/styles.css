@@ -1,12 +1,3 @@
-/**
- * styles.css
- *
- * Computer Science 50
- * Problem Set 7
- *
- * Global CSS.
- */
-
 .container
 {
     /* center contents */
@@ -49,4 +40,11 @@
 
     /* surround with whitespace */
     margin: 20px;
+}
+
+/* paneli i opsioneve te adminit */
+div#options *
+{
+    /* shfaqi elementet ne nje rresht */
+    display: inline;
 }
