@@ -24,6 +24,20 @@
             apologize("Nuk mund të shfaqen notat për momentin. Provoni sërish më vonë.");
     }
 
+    // nese studenti ose admini ka kerkuar heqjen e nje note
+    if ($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        if (query("DELETE FROM nota WHERE id_student = ? AND lenda = ?", 
+            ($_SESSION["type"] == "admin") ? $_POST["id"] : $_SESSION["id"], $_POST["lenda"]) === false)
+            apologize("Nuk mund të kryhet veprimi për momentin. Provoni sërish më vonë.");
+
+        // nese gjithcka shkon mire, shko tek notat e studentit
+        if ($_SESSION["type"] == "admin")
+                redirect("/grades.php?id_student=" . $_POST["id"]);
+        else
+            redirect("/grades.php");
+    }
+
     // shfaq notat
     render("grades_show.php", ["title" => "Lista e notave", "fields" => $rows]);
 

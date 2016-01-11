@@ -49,10 +49,9 @@
     				apologize("Nuk mund të kryhet veprimi për momentin. Provoni sërish më vonë.");
     		}
 
-			// nese studenti ose admini do te heqe interesimin
+			// nese studenti do te heqe interesimin
     		elseif($_POST["action"] == "unsubscribe") {
-    			if (query("DELETE FROM kandidate WHERE id_njoftim = ? AND id_student = ?", $_POST["id_njoftim"], 
-                    ($_SESSION["type"] == "admin") ? $_POST["id_student"] : $_SESSION["id"]) === false)
+    			if (query("DELETE FROM kandidate WHERE id_njoftim = ? AND id_student = ?", $_POST["id_njoftim"], $_SESSION["id"]) === false)
     				    apologize("Nuk mund të kryhet veprimi për momentin. Provoni sërish më vonë.");
     		}
 

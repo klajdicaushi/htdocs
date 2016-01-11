@@ -54,7 +54,6 @@
     			apologize("Nuk mund të llogaritet nota mesatare. Provoni sërish më vonë.");
 
     		// nese gjithcka shkon mire, shko tek notat e studentit
-            // nese cdo gje shkon mire
             if ($_SESSION["type"] == "admin")
                 redirect("grades.php?id_student=" . $_POST["id"]);
             else
