@@ -125,7 +125,7 @@
     		// nese po modifikonte nje student
     		if ($_POST["type"] == "student")
     			redirect("students.php?show=selected&id=" . $_POST["id"]);
-    		if ($_POST["type"] == "kompani")
+    		elseif ($_POST["type"] == "kompani")
     			redirect("companies.php?show=selected&id_kompani=" . $_POST["id"]);
     	}
 
