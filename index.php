@@ -1,5 +1,7 @@
 <?php
 
+    /* Faqja kryesore */
+
     // konfigurimi
     require("/../site_folders/includes/config.php");
 

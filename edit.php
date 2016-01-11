@@ -1,39 +1,52 @@
 <?php
 
+	/* Sherben per te modifikuar te dhenat e perdoruesve */
+
     // konfigurimi
     require("/../site_folders/includes/config.php");
 
+    // nese faqja eshte arritur nepermjet GET (link ose redirect)
     if ($_SERVER["REQUEST_METHOD"] == "GET") 
     {
+    	// nese perdoruesi eshte student
     	if ($_SESSION["type"] == "student") 
     	{
+    		// merr te dhenat e studentit
     		if (($rows = query("SELECT * FROM student WHERE id = ?", $_SESSION["id"])) === false)
     			apologize("Nuk mund të merren të dhënat për momentin.");
+    		// shfaq formularin per modifikimin e te dhenave te studentit
     		render("edit_student.php", ["title" => "Modifiko", "fields" => $rows[0]]);
     	}
 
+    	// nese perdoruesi eshte kompani
     	elseif ($_SESSION["type"] == "kompani") 
     	{
+    		// merr te dhenat e kompanise
     		if (($rows = query("SELECT * FROM kompani WHERE id = ?", $_SESSION["id"])) === false)
     			apologize("Nuk mund të merren të dhënat për momentin.");
+    		// shfaq formularin per modifikimin e te dhenave te kompanise
     		render("edit_kompani.php", ["title" => "Modifiko", "fields" => $rows[0]]);
     	}
 
+    	// nese perdoruesi eshte admin
     	elseif($_SESSION["type"] == "admin") 
     	{
-    			if (($rows = query("SELECT * FROM " . $_GET["type"] . " WHERE id = ?", $_GET["id"])) === false)
-    				apologize("Nuk mund të merren të dhënat për momentin.");
-    			render("edit_" . $_GET["type"] . ".php", ["title" => "Modifiko", "fields" => $rows[0]]);
+    		// merr te dhenat e perdoruesit qe do te modifikoje
+    		if (($rows = query("SELECT * FROM " . $_GET["type"] . " WHERE id = ?", $_GET["id"])) === false)
+    			apologize("Nuk mund të merren të dhënat për momentin.");
+    		// shfaq formularin per modifikimin e te dhenave te perdoruesit
+    		render("edit_" . $_GET["type"] . ".php", ["title" => "Modifiko", "fields" => $rows[0]]);
     	}
     }
 
+    // nese faqja eshte arritur nepermjet POST (duke plotesuar nje formular)
     elseif ($_SERVER["REQUEST_METHOD"] == "POST")
     {
     	// kontrollo nese fushat jane te plotesuara
     	foreach ($_POST as $key => $value) {
 	        // anashkalo vetem per fushen e pershkrimit ose celularit
 	        if ( $key != "pershkrimi" && $key != "cel")
-	            if (empty($value)) { // nese ka fusha te paplotesuara, shfaq alert dhe rishfaq formen
+	            if (empty($value)) { // nese ka fusha te paplotesuara, shfaq alert dhe rishfaq formularin
 	                showAlert("Ju lutemi, plotësoni të gjitha fushat e kërkuara!");
 	                // nese faqja po vizitohet nga admini
 	                if ($_SESSION["type"] == "admin")
@@ -125,6 +138,7 @@
     		// nese po modifikonte nje student
     		if ($_POST["type"] == "student")
     			redirect("students.php?show=selected&id=" . $_POST["id"]);
+    		// nese po modifikonte nje kompani
     		elseif ($_POST["type"] == "kompani")
     			redirect("companies.php?show=selected&id_kompani=" . $_POST["id"]);
     	}

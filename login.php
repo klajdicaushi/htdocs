@@ -1,5 +1,7 @@
 <?php
 
+    /* Menaxhon hyrjen e perdoruesve ne sistem */
+
     // konfigurimi
     require("/../site_folders/includes/config.php"); 
 
@@ -50,9 +52,9 @@
                 {
                     // kujto qe perdoruesi eshte loguar duke ruajtur ID-ne e tij
                     $_SESSION["id"] = $row["id"];
-                    // kujto llojin e perdoruesit
+                    // ruaj llojin e perdoruesit
                     $_SESSION["type"] = $row["type"];
-                    // kujto username
+                    // ruaj username
                     $_SESSION["username"] = $row["username"];
     
                     // shko tek faqja kryesore

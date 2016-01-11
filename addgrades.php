@@ -1,22 +1,27 @@
 <?php 
+
+    /* Sherben per te menaxhuar shtimin e notave per studentet */
+
 	// konfigurimi
     require("/../site_folders/includes/config.php"); 
 
-    // nese faqja eshte arritur nepermjet GET (drejtperdrejt)
+    // nese faqja eshte arritur nepermjet GET (link ose redirect)
     if ($_SERVER["REQUEST_METHOD"] == "GET")
     	redirect("/");
 
+    // nese faqja eshte arritur nepermjet POST (duke plotesuar nje formular)
     else if ($_SERVER["REQUEST_METHOD"] == "POST") 
     {
-    	// kerko numrin e notave
+    	// hap nje forme per te kerkuar numrin e notave
     	if ($_POST["option"] == "choose")
     		render("addgrades_choose.php", ["title" => "Shto nota"]);
 
-    	// shfaq formular per notat
+    	// shfaq forme per notat
     	elseif($_POST["option"] == "add") {
     		// kontrollo nese numri i lendeve eshte i vlefshem
     		if (!preg_match("/^[1-9][0-9]*$/", $_POST["nrLende"])) {
     			showAlert("Numri i lëndëve është i pavlefshëm.");
+                // nese jo, rishfaq formen
                 if ($_SESSION["type"] == "student")
     			    render("addgrades_choose.php", ["title" => "Shto nota"]);
                 elseif($_SESSION["type"] == "admin")
@@ -50,6 +55,7 @@
 
     		$mesatarja = number_format((float) $shuma / count($rows), 2);
 
+            // hidh mesataren ne databaze
     		if ( query("UPDATE student SET nota_mesatare = ? WHERE id = ?", $mesatarja, ($_SESSION["type"] == "admin") ? $_POST["id"] : $_SESSION["id"]) === false)
     			apologize("Nuk mund të llogaritet nota mesatare. Provoni sërish më vonë.");
 

@@ -1,5 +1,7 @@
 <?php 
 
+    /* Shfaq profilin personal te studenteve dhe kompanive */
+
 	// konfigurimi
     require("/../site_folders/includes/config.php"); 
 

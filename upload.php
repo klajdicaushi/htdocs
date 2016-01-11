@@ -1,4 +1,6 @@
 <?php
+
+	/* Menaxhon hedhjen e CV-ve te studenteve ne sistem */
 	
 	// konfigurimi
 	require("/../site_folders/includes/config.php"); 

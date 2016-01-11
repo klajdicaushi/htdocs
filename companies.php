@@ -1,9 +1,11 @@
 <?php
+    
+    /* Sherben per te shfaqur informacionet e kompanive */
 
 	// konfigurimi
     require("/../site_folders/includes/config.php"); 
 
-    // faqja nuk hapet nga kompanite
+    // faqja nuk mund te hapet nga kompanite
     if ($_SESSION["type"] == "kompani")
     	redirect("/");
 

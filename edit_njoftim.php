@@ -1,16 +1,17 @@
 <?php
 
+    /* Sherben per te modifikuar te dhenat e nje njoftimi */
+
     // konfigurimi
     require("/../site_folders/includes/config.php"); 
 
-    // nese faqja eshte arritur nepermjet GET
+    // nese faqja eshte arritur nepermjet GET (link ose redirect)
     if ($_SERVER["REQUEST_METHOD"] == "GET")
     	redirect("/profile.php");
 
-    // nese faqja eshte arritur nepermjet POST
+    // nese faqja eshte arritur nepermjet POST (duke plotesuar nje formular)
     elseif($_SERVER["REQUEST_METHOD"] == "POST")
     {	
-    	
     	// nese kerkohet te modifikohet njoftimi
     	if ($_POST["action"] == "edit")
     	{

@@ -1,4 +1,6 @@
 <?php
+
+	/* Sherben per te shkarkuar CV-te e hedhura ne sistem */
 	
 	// konfigurimi
 	require("/../site_folders/includes/config.php");

@@ -1,6 +1,6 @@
 .container
 {
-    /* center contents */
+    /* Vendos elementet ne qender */
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -8,43 +8,43 @@
 
 #top img 
 {
-    /* constrain photo on smaller screens */
+    /* Fotoja ndryshon sipas madhesise se faqes */
     max-width: 100%;
 }
 
 #top .nav
 {
-    /* center navigation pills */
+    /* Vendos butonat e menuse ne qender */
     display: inline-block;
 }
 
 #middle .form-control
 {
-    /* center form controls */
+    /* Vendos elementet e formes ne qender */
     display: inline-block;
 
-    /* override Bootstrap's 100% width for form controls */
+    /* Gjeresia e elementeve te formes (i mbivendoset asaj te Bootstrap) */
     width: auto;
 }
 
 #middle td
 {
-    /* left align tables' cells */
+    /* Vendos permbajtjen e qelizave te tabeles ne te majte */
     text-align: left;
 }
 
 #bottom
 {
-    /* shrink bottom's font size */
+    /* Zvogelon tekstin e footer */
     font-size: smaller;
 
-    /* surround with whitespace */
+    /* E rrethon footer me margins */
     margin: 20px;
 }
 
 /* paneli i opsioneve te adminit */
 div#options *
 {
-    /* shfaqi elementet ne nje rresht */
+    /* Shfaq elementet ne nje rresht */
     display: inline;
 }

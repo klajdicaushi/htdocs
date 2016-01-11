@@ -1,5 +1,7 @@
 <?php
 
+	/* Sherben per te shfaqur informacionet e studenteve */
+
 	// konfigurimi
     require("/../site_folders/includes/config.php"); 
 

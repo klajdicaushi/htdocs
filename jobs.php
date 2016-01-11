@@ -1,5 +1,7 @@
 <?php
 
+    /* Sherben per te shfaqur njoftimet e punes dhe menaxhon interesimin e studenteve */
+
     // konfigurimi
     require("/../site_folders/includes/config.php"); 
 
@@ -7,10 +9,10 @@
     if (!isset($_GET["show"]))
     	$_GET["show"] = "all";
 
-    // nese faqja vizitohet nga nje student
+    // nese faqja vizitohet nga nje student ose admini
     if ($_SESSION["type"] == "student" || $_SESSION["type"] == "admin") 
     {
-    	// nese duhet te shfaqet te gjitha njoftimet te gjitha njoftimet
+    	// nese duhet te shfaqen te gjitha njoftimet
         if ($_GET["show"] == "all") 
         {
         	// nese nuk eshte perzgjedhur nje kompani
@@ -94,6 +96,5 @@
     	// shfaq njoftimin
     	render("jobs_select.php", ["title" => $njoftim[0]["pozicioni"], "njoftim" => $njoftim[0], "kompani" => $kompani[0]]);
     }
-
 
 ?>

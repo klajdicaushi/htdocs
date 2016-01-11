@@ -1,4 +1,6 @@
 <?php
+    
+    /* Sherben per te shfaqur ose krijuar njoftimet e administratorit */
 
     // konfigurimi
     require("/../site_folders/includes/config.php");
@@ -18,9 +20,10 @@
     	render("announcement_show.php", ["title" => $njoftim[0]["titulli"], "njoftim" => $njoftim[0]]);
     }
 
-    
+    // nese faqja eshte arritur nepermjet POST (duke plotesuar nje formular)
     else if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
+        // nese admini kerkon te krijoje nje njoftim
     	if ($_POST["action"] == "create")
     		render("announcement_create.php", ["title" => "Krijo një njoftim"]);
 

@@ -1,5 +1,7 @@
 <?php
 
+    /* Sherben per te zgjedhur llojin e perdoruesit qe do te regjistrohet */
+
     // configuration
     require("/../site_folders/includes/config.php"); 
 

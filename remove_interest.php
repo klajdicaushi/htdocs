@@ -1,5 +1,7 @@
 <?php
 
+	/* Sherben per ti mundesuar adminit heqjen e interesimit te studenteve per nje pune */
+
     // konfigurimi
     require("/../site_folders/includes/config.php"); 
 

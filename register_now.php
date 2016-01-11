@@ -1,5 +1,7 @@
 <?php 
 
+	/* Sherben per te menaxhuar regjistrimin e perdoruesve te rinj */
+
 	// konfigurimi
 	require("/../site_folders/includes/config.php"); 
 

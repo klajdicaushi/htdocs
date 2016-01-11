@@ -1,5 +1,7 @@
 <?php
 
+    /* U mundeson studenteve dhe kompanive ndryshimin e passwordit */
+
     // konfigurimi
     require("/../site_folders/includes/config.php");
     

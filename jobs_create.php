@@ -1,13 +1,15 @@
 <?php
 
+	/* Sherben per te krijuar njoftime te reja */
+
     // konfigurimi
     require("/../site_folders/includes/config.php"); 
 
-    // nese faqja eshte arritur nepermjet GET
+    // nese faqja eshte arritur nepermjet GET (link ose redirect)
     if ($_SERVER["REQUEST_METHOD"] == "GET")
     	render("jobs_create.php", ["title" => "Krijo njoftim"]);
 
-    // nese faqja eshte arritur nepermjet POST
+    // nese faqja eshte arritur nepermjet POST (duke plotesuar nje formular)
     elseif ($_SERVER["REQUEST_METHOD"] == "POST") 
     {
     	// kontrollo nese fushat jane te plotesuara
@@ -51,6 +53,5 @@
     	// nese cdo gje shkon mire, shko tek njoftimi
 	    redirect("/jobs.php?show=selected&id_njoftim=" . $rows[0]["id_njoftim"]);
     }
-
 
 ?>
