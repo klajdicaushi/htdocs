@@ -17,6 +17,7 @@
     		apologize("Nuk mund të merren të dhënat për momentin.");
     }
 
+    // shfaq profilin perkates
     render("profile_" . $_SESSION["type"] . ".php", ["title" => "Profili im", "fields" => $rows[0]]);
     
 ?>

@@ -2,13 +2,13 @@
 
     /* Sherben per te zgjedhur llojin e perdoruesit qe do te regjistrohet */
 
-    // configuration
+    // konfigurimi
     require("/../site_folders/includes/config.php"); 
 
     // nese faqja eshte arritur nepermjet GET (link ose redirect)
     if ($_SERVER["REQUEST_METHOD"] == "GET")
     {            
-        // shfaq formen
+        // shfaq formularin
         renderNoMenu("register_form.php", ["title" => "Regjistrohu"]);
     }
 
