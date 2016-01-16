@@ -20,6 +20,25 @@
 			}
 	}
 
+	if (!preg_match("/^[1-9]{2}$/", $_POST["mosha"]))
+	{
+		showAlert("Moshë e pavlefshme!");
+		renderNoMenu("register_" . $_POST["type"] . ".php", ["title" => "Regjistrohu", "fields" => $_POST]);
+		// shko tek mosha
+		echo "<script>";
+		echo "document.getElementById('myForm').mosha.focus()";
+		echo "</script>";
+		return;
+	}
+
+	// kontrollo nese eshte vendosur gjinia
+	if (!isset($_POST["gjinia"]))
+	{
+		showAlert("Ju lutemi, vendosni gjininë!");
+		renderNoMenu("register_" . $_POST["type"] . ".php", ["title" => "Regjistrohu", "fields" => $_POST]);
+		return;
+	}
+
 	// nese passwordet nuk jane te njejte
 	if ($_POST["password"] != $_POST["confirmation"]) 
 	{
@@ -104,8 +123,8 @@
 		}
 
 		// shto perdoruesin e ri ne tabelen student
-		if ( query("INSERT INTO student (id, emri, mosha, email, cel) VALUES (?, ?, ?, ?, ?)", 
-			$rows[0]["id"], $_POST["emri"], intval($_POST["mosha"]), $_POST["email"], $_POST["cel"]) === false)
+		if ( query("INSERT INTO student (id, emri, gjinia, mosha, email, cel) VALUES (?, ?, ?, ?, ?, ?)", 
+			$rows[0]["id"], $_POST["emri"], $_POST["gjinia"], intval($_POST["mosha"]), $_POST["email"], $_POST["cel"]) === false)
 				apologize("Nuk mund të regjistroheni për momentin. Provoni sërish më vonë.");
 	}
 

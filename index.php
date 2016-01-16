@@ -12,8 +12,8 @@
     // nese faqja po aksesohet nga nje student
     if ($_SESSION["type"] == "student") 
     {
-        // merr emrin e studentit nga databaza
-        if (($student = query("SELECT emri FROM student WHERE id = ?", $_SESSION["id"])) === false)
+        // merr emrin dhe gjinine e studentit nga databaza
+        if (($student = query("SELECT emri, gjinia FROM student WHERE id = ?", $_SESSION["id"])) === false)
             apologize("Nuk mund të shfaqet faqja kryesore për momentin. Provoni sërish më vonë.");
 
         // merr pozicionet e punes ku studenti eshte i interesuar

@@ -116,8 +116,8 @@
 	        }
 
 	        // modifiko te dhenat ne tabelen student
-	        if ( query("UPDATE student SET emri = ?, mosha = ?, email = ?, cel = ? WHERE id = ?", 
-	            $_POST["emri"], intval($_POST["mosha"]), $_POST["email"], $_POST["cel"], ($_SESSION["type"] == "admin") ? $_POST["id"] : $_SESSION["id"]) === false)
+	        if ( query("UPDATE student SET emri = ?, gjinia = ?, mosha = ?, email = ?, cel = ? WHERE id = ?", $_POST["emri"], 
+	            $_POST["gjinia"], intval($_POST["mosha"]), $_POST["email"], $_POST["cel"], ($_SESSION["type"] == "admin") ? $_POST["id"] : $_SESSION["id"]) === false)
 	                apologize("Nuk mund të modifikohen të dhënat për momentin. Provoni sërish më vonë.");	
     	}
 
